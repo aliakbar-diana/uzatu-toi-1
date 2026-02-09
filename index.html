@@ -4,77 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Персональное приглашение | Диана қыз ұзату</title>
-    
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <style>
-        @font-face{font-family:Carolina;src:url(shrift1.woff) format("woff");font-weight:400;font-style:normal}
-        @font-face{font-family:Shelley;src:url(shrift2.woff) format("woff");font-weight:400;font-style:normal}
-        @font-face{font-family:MonumentaPro;src:url(shrift3.woff) format("woff");font-weight:400;font-style:normal}
-        
-        * {
-            -webkit-tap-highlight-color: transparent;
-        }
-        
+        @font-face { font-family: Carolina; src: url(shrift1.woff) format("woff"); }
+        @font-face { font-family: Shelley; src: url(shrift2.woff) format("woff"); }
+        @font-face { font-family: MonumentaPro; src: url(shrift3.woff) format("woff"); }
+
+        * { -webkit-tap-highlight-color: transparent; }
+
         html, body {
             height: 100%;
             margin: 0;
             padding: 0;
             overflow-x: hidden;
         }
-        
+
         body {
             font-family: MonumentaPro, Arial, sans-serif;
             color: #fff;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            background: #000;
             position: relative;
         }
-        
-        body::after {
-            content: "";
+
+        /* ===== Stable mobile background ===== */
+        .bg {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('1.jpg') no-repeat center center;
-            background-size: cover;
+            inset: 0;
+            background: url('1.jpg') center center / cover no-repeat;
+            transform: translateZ(0);
+            will-change: transform;
             z-index: -2;
         }
-        
-        body::before {
+
+        .bg::after {
             content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            position: absolute;
+            inset: 0;
             background: rgba(0, 0, 0, 0.05);
-            z-index: -1;
         }
-        
+
         .invitation-container {
-            position: relative;
-            z-index: 1;
             min-height: 100vh;
             display: flex;
             align-items: center;
             padding: 20px 0;
         }
-        
+
         .content-wrapper {
             width: 100%;
             animation: fadeIn 1.2s ease;
         }
-        
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
-        
-        /* Bride Name */
+
         .bride-name {
             font-family: Shelley, cursive;
             font-size: 4rem;
@@ -82,653 +70,207 @@
             margin-bottom: 0.2rem;
             animation: slideDown 0.8s ease 0.3s backwards;
         }
-        
+
         @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
+            from { opacity: 0; transform: translateY(-30px); }
         }
-        
-        /* Event Type */
+
         .event-type {
             font-size: 1.1rem;
             letter-spacing: 0.3rem;
             text-transform: uppercase;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
         }
-        
-        /* Guest Name Card */
-.guest-card {
-    background: linear-gradient(
-        135deg,
-        rgba(173, 152, 110, 0.18),
-        rgba(193, 172, 130, 0.08)
-    );
-    border: 1.5px solid rgba(173, 152, 110, 0.28);
-    border-radius: 20px;
-    padding: 0.8rem 1.5rem;
 
-    /* тень легче, чтобы не затемняла */
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.10);
-
-    animation: fadeInScale 0.8s ease 0.4s backwards;
-    display: inline-block;
-}
-
+        .guest-card {
+            background: linear-gradient(135deg, rgba(173,152,110,0.18), rgba(193,172,130,0.08));
+            border: 1.5px solid rgba(173,152,110,0.28);
+            border-radius: 20px;
+            padding: 0.8rem 1.5rem;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.10);
+            animation: fadeInScale 0.8s ease 0.4s backwards;
+            display: inline-block;
+        }
 
         @keyframes fadeInScale {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
+            from { opacity: 0; transform: scale(0.9); }
         }
-        
+
         .guest-label {
             font-size: 0.65rem;
-            text-transform: uppercase;
             letter-spacing: 2px;
-            opacity: 0.85;
-            margin-bottom: 0.3rem;
+            text-transform: uppercase;
         }
-        
+
         .guest-name {
             font-family: Shelley, cursive;
             font-size: 2rem;
-            text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
             line-height: 1.3;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
         }
-        
-        /* Invitation Text */
-        .invitation-text {
-            animation: fadeInUp 0.8s ease 0.6s backwards;
+
+        .greeting { font-size: 0.9rem; }
+        .message { font-size: 0.85rem; line-height: 1.6; }
+
+        /* Стиль для той иелері */
+        .hosts-section {
+            margin: 1rem 0;
         }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
+
+        .hosts-label {
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.9;
+            margin-bottom: 0.3rem;
         }
-        
-        .greeting {
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+
+        .hosts-names {
+            font-family: Shelley, cursive;
+            font-size: 1.6rem;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
         }
-        
-        .message {
-            font-size: 0.85rem;
-            line-height: 1.6;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
-        }
-        
-        /* Detail Cards */
-        .detail-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 18px;
-            padding: 1rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            margin-bottom: 0.75rem;
-            animation: scaleIn 0.8s ease 0.8s backwards;
-        }
-        
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-        }
-        
-        .datetime-row {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 1.5rem;
-        }
-        
-        .datetime-divider {
-            width: 2px;
-            height: 2.5rem;
-            background: linear-gradient(to bottom, 
-                rgba(255, 255, 255, 0.1) 0%, 
-                rgba(255, 255, 255, 0.4) 50%, 
-                rgba(255, 255, 255, 0.1) 100%);
-        }
-        
-        .detail-label {
+
+        /* Заголовки для карточек */
+        .card-header {
             font-size: 0.7rem;
-            text-transform: lowercase;
+            letter-spacing: 2px;
+            text-transform: uppercase;
             opacity: 0.85;
             margin-bottom: 0.5rem;
         }
-        
+
+        .detail-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05));
+            border-radius: 18px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
         .detail-value {
             font-family: Shelley, cursive;
             font-size: 1.8rem;
-            line-height: 1.1;
-            text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
         }
-        
+
         .detail-value.time {
-            font-family: MonumentaPro, sans-serif;
+            font-family: MonumentaPro;
             font-size: 1.5rem;
-            font-weight: 300;
         }
-        
+
         .detail-value.address {
-            font-family: MonumentaPro, sans-serif;
+            font-family: MonumentaPro;
             font-size: 0.8rem;
             line-height: 1.6;
-            font-weight: 400;
         }
-        
-        /* Hosts Section */
-        .hosts-section {
-            animation: fadeInUp 0.8s ease 1.0s backwards;
+
+        .divider-line {
+            width: 60px;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.4);
+            margin: 0.8rem auto;
         }
-        
-        .hosts-label {
-            font-size: 0.7rem;
-            opacity: 0.9;
-            margin-bottom: 0.4rem;
-        }
-        
-        .hosts-names {
-            font-family: Shelley, cursive;
-            font-size: 1.9rem;
-            text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
-        }
-        
-        /* 2GIS Button */
+
         .gis-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.75rem;
-            padding: 0.7rem 1.2rem;
+            display: inline-block;
             margin-top: 0.5rem;
-            background: linear-gradient(135deg, #ad986e 0%, #c9b388 100%);
-            color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0.5rem 1.2rem;
             border-radius: 50px;
+            background: linear-gradient(135deg, #ad986e, #c9b388);
+            color: #fff;
             text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(173, 152, 110, 0.3);
-        }
-        
-        .gis-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(173, 152, 110, 0.5);
-            color: #fff;
-        }
-        
-        /* RSVP Section */
-        .rsvp-section {
-            animation: fadeInUp 0.8s ease 1.2s backwards;
-        }
-        
-        /* RSVP Question */
-        .rsvp-question {
-            font-size: 1rem;
-            margin-bottom: 1rem;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
-            font-weight: 500;
-        }
-        
-        /* RSVP Buttons */
-        .rsvp-btn {
-            position: relative;
             font-size: 0.8rem;
-            padding: 0.85rem 1.5rem;
+        }
+
+        .rsvp-btn {
+            width: 100%;
+            padding: 0.9rem;
+            border-radius: 50px;
             border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-            width: 100%;
-            min-height: 50px;
         }
-        
+
         .btn-accept {
-            background: linear-gradient(135deg, #ad986e 0%, #c9b388 100%);
+            background: linear-gradient(135deg, #ad986e, #c9b388);
             color: #fff;
         }
-        
-        .btn-accept:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(173, 152, 110, 0.6);
-            color: #fff;
-        }
-        
+
         .btn-decline {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.15));
+            background: rgba(255,255,255,0.25);
             color: #fff;
-            border: 2px solid rgba(255, 255, 255, 0.5);
+            border: 2px solid rgba(255,255,255,0.5);
         }
-        
-        .btn-decline:hover {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.25));
-            border-color: rgba(255, 255, 255, 0.8);
-            transform: translateY(-2px);
-            color: #fff;
-        }
-        
-        .rsvp-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-        
-        /* Modal */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            z-index: 2000;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .modal-overlay.active {
-            display: flex;
-            opacity: 1;
-        }
-        
-        .modal-content {
-            background: linear-gradient(135deg, rgba(173, 152, 110, 0.95), rgba(193, 172, 130, 0.95));
-            border-radius: 25px;
-            padding: 2.5rem 2rem;
-            text-align: center;
-            max-width: 90%;
-            width: 300px;
-            transform: scale(0.9);
-            opacity: 0;
-            transition: all 0.3s ease;
-            border: 2px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-        }
-        
-        .modal-overlay.active .modal-content {
-            transform: scale(1);
-            opacity: 1;
-        }
-        
-        .modal-content.declined {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.15));
-        }
-        
-        .modal-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-        
-        .modal-message {
-            font-size: 1rem;
-            line-height: 1.5;
-            margin-bottom: 1.5rem;
-        }
-        
-        .modal-close {
-            font-size: 0.85rem;
-            padding: 0.7rem 1.8rem;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.15));
-            color: #fff;
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .modal-close:hover {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.25));
-            border-color: rgba(255, 255, 255, 0.8);
-        }
-        
-        /* Responsive Typography */
+
+        /* Mobile tweaks */
         @media (max-width: 576px) {
-            .bride-name {
-                font-size: 3.2rem;
-            }
-            
-            .event-type {
-                font-size: 0.95rem;
-                letter-spacing: 0.2rem;
-            }
-            
-            .guest-name {
-                font-size: 1.7rem;
-            }
-            
-            .greeting {
-                font-size: 0.8rem;
-            }
-            
-            .message {
-                font-size: 0.75rem;
-            }
-            
-            .detail-value {
-                font-size: 1.6rem;
-            }
-            
-            .detail-value.time {
-                font-size: 1.3rem;
-            }
-            
-            .detail-value.address {
-                font-size: 0.75rem;
-            }
-            
-            .hosts-names {
-                font-size: 1.6rem;
-            }
-            
-            .datetime-divider {
-                height: 2.2rem;
-            }
-            
-            .rsvp-question {
-                font-size: 0.9rem;
-            }
-        }
-        
-        @media (max-width: 400px) {
-            .bride-name {
-                font-size: 2.8rem;
-            }
-            
-            .event-type {
-                font-size: 0.85rem;
-            }
-            
-            .guest-name {
-                font-size: 1.5rem;
-            }
-            
-            .detail-value {
-                font-size: 1.5rem;
-            }
-            
-            .detail-value.time {
-                font-size: 1.2rem;
-            }
-            
-            .hosts-names {
-                font-size: 1.4rem;
-            }
-            
-            .datetime-row {
-                flex-direction: column;
-                gap: 0.8rem;
-            }
-            
-            .datetime-divider {
-                width: 3.5rem;
-                height: 2px;
-                background: linear-gradient(to right, 
-                    rgba(255, 255, 255, 0.1) 0%, 
-                    rgba(255, 255, 255, 0.4) 50%, 
-                    rgba(255, 255, 255, 0.1) 100%);
-            }
-            
-            .rsvp-question {
-                font-size: 0.85rem;
-            }
-        }
-        
-        /* Landscape mode */
-        @media (max-height: 600px) and (orientation: landscape) {
-            .invitation-container {
-                padding: 10px 0;
-            }
-            
-            .bride-name {
-                font-size: 2.5rem;
-            }
-            
-            .event-type {
-                font-size: 0.8rem;
-            }
-            
-            .guest-name {
-                font-size: 1.3rem;
-            }
-            
-            .detail-value {
-                font-size: 1.3rem;
-            }
-            
-            .detail-value.time {
-                font-size: 1.1rem;
-            }
-            
-            .hosts-names {
-                font-size: 1.3rem;
-            }
-            
-            .datetime-divider {
-                height: 2rem;
-            }
-            
-            .rsvp-question {
-                font-size: 0.85rem;
-            }
+            .bride-name { font-size: 3.2rem; }
+            .guest-name { font-size: 1.7rem; }
+            .hosts-names { font-size: 1.4rem; }
         }
     </style>
 </head>
+
 <body>
+
+<div class="bg"></div>
 
 <div class="invitation-container">
     <div class="container">
-        <div class="content-wrapper">
-            
-            <!-- Top Section -->
-            <div class="text-center mb-3">
-                <h1 class="bride-name mb-1">Диана</h1>
-                <div class="event-type">ҚЫЗ ҰЗАТУ</div>
-            </div>
-            
-            <!-- Guest Name -->
-            <div class="text-center mb-3">
-                <div class="guest-card">
-                    <div class="guest-label">Шақырылады</div>
-                    <div class="guest-name" id="guestName">Еркин<br>Галя<br>Ерсин<br>Айнур<br>Айгерим</div>
+        <div class="content-wrapper text-center">
+
+            <h1 class="bride-name">Диана</h1>
+            <div class="event-type mb-3">ҚЫЗ ҰЗАТУ</div>
+
+            <div class="guest-card mb-3">
+                <div class="guest-label">Шақырылады</div>
+                <div class="guest-name" id="guestName">
+                    Еркин<br>Галя<br>Ерсин<br>Айнур<br>Айгерим
                 </div>
             </div>
-            
-            <div class="invitation-text text-center mb-3 px-3">
-                <div class="greeting">Құрметті қонақтар!</div>
-                <div class="message">
-                    Сіздерді аяулы қызымыз Диананың ұзату тойына<br class="d-none d-sm-inline">
-                    арналған салтанатты ақ дастарханымыздың<br class="d-none d-sm-inline">
-                    қадірлі қонағы болуға шақырамыз!
+
+            <div class="greeting">Құрметті қонақтар!</div>
+            <div class="message mb-3">
+                Сіздерді аяулы қызымыз Диананың ұзату тойына
+                арналған салтанатты ақ дастарханымыздың
+                қадірлі қонағы болуға шақырамыз!
+            </div>
+
+
+            <div class="detail-card">
+                <div class="card-header">Күні мен уақыты</div>
+                <div class="detail-value">02 мамыр</div>
+                <div class="divider-line"></div>
+                <div class="detail-value time">17:00</div>
+            </div>
+
+            <div class="detail-card">
+                <div class="card-header">Мекен-жайы</div>
+                <div class="detail-value address">
+                    Петропавл қ. | Конституция Казахстана, 41<br>
+                    "Garden Hall"
                 </div>
             </div>
-            
-            <!-- Event Details -->
-            <div class="row justify-content-center mb-3">
-                <div class="col-12 col-sm-10 col-md-8 col-lg-6">
-                    
-                    <!-- Date & Time Card -->
-                    <div class="detail-card">
-                        <div class="datetime-row">
-                            <div class="text-center">
-                                <div class="detail-label">күні</div>
-                                <div class="detail-value">02<br>мамыр</div>
-                            </div>
-                            <div class="datetime-divider"></div>
-                            <div class="text-center">
-                                <div class="detail-label">уақыты</div>
-                                <div class="detail-value time">17:00</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Address Card -->
-                    <div class="detail-card text-center">
-                        <div class="detail-label">Мекен-жай</div>
-                        <div class="detail-value address">
-                            Петропавл қ. | Конституция Казахстана, 41<br>
-                            "Garden Hall" мейрамханасы
-                        </div>
-                    </div>
-                    
-                    <!-- 2GIS Button -->
-                    <div class="text-center">
-                        <a href="https://go.2gis.com/rc55o" target="_blank" class="gis-button">
-                            Картада ашу (2ГИС)
-                        </a>
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <!-- Hosts -->
-            <div class="hosts-section text-center mb-3">
-                <div class="hosts-label">Той иелері:</div>
+
+            <a href="https://go.2gis.com/rc55o" target="_blank" class="gis-button">
+                Картада ашу (2ГИС)
+            </a>
+
+            <div class="hosts-section mb-3">
+                <div class="hosts-label">Той иелері</div>
                 <div class="hosts-names">Бақыт - Жанна</div>
             </div>
-            
-            <!-- RSVP Buttons -->
-            <div class="rsvp-section">
-                <div class="row justify-content-center">
-                    <div class="col-12 col-sm-10 col-md-8 col-lg-6">
-                        <!-- RSVP Question -->
-                        <div class="text-center rsvp-question">
-                            Тойға келесізбе?
-                        </div>
-                        <!-- Buttons -->
-                        <div class="row g-2">
-                            <div class="col-6">
-                                <button class="rsvp-btn btn-accept" id="btnAccept">
-                                    Келемін
-                                </button>
-                            </div>
-                            <div class="col-6">
-                                <button class="rsvp-btn btn-decline" id="btnDecline">
-                                    Келмеймін
-                                </button>
-                            </div>
-                        </div>
+            <div class="mt-3">
+                <div class="mb-2">Тойға келесізбе?</div>
+                <div class="row g-2">
+                    <div class="col-6">
+                        <button class="rsvp-btn btn-accept">Келемін</button>
+                    </div>
+                    <div class="col-6">
+                        <button class="rsvp-btn btn-decline">Келмеймін</button>
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </div>
 </div>
-
-<!-- Modal -->
-<div class="modal-overlay align-items-center justify-content-center" id="modalOverlay">
-    <div class="modal-content" id="modalContent">
-        <div class="modal-icon" id="modalIcon">✨</div>
-        <div class="modal-message" id="modalMessage"></div>
-        <button class="modal-close" id="modalClose">OK</button>
-    </div>
-</div>
-
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Get guest name from URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const guestParam = urlParams.get('guest');
-    
-    if (guestParam) {
-        // Split by spaces and join with <br> tags
-        const names = decodeURIComponent(guestParam).split(' ');
-        document.getElementById('guestName').innerHTML = names.join('<br>');
-    }
-    
-    const btnAccept = document.getElementById('btnAccept');
-    const btnDecline = document.getElementById('btnDecline');
-    const modalOverlay = document.getElementById('modalOverlay');
-    const modalContent = document.getElementById('modalContent');
-    const modalIcon = document.getElementById('modalIcon');
-    const modalMessage = document.getElementById('modalMessage');
-    const modalClose = document.getElementById('modalClose');
-    
-    function showModal(type, message) {
-        modalIcon.textContent = type === 'success' ? '✨' : '💔';
-        modalMessage.innerHTML = message;
-        
-        if (type === 'success') {
-            modalContent.classList.remove('declined');
-        } else {
-            modalContent.classList.add('declined');
-        }
-        
-        modalOverlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-    
-    function closeModal() {
-        modalOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-    
-    modalClose.addEventListener('click', closeModal);
-    modalOverlay.addEventListener('click', function(e) {
-        if (e.target === modalOverlay) {
-            closeModal();
-        }
-    });
-    
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
-            closeModal();
-        }
-    });
-    
-    btnAccept.addEventListener('click', function() {
-        btnAccept.disabled = true;
-        btnDecline.disabled = true;
-        
-        showModal('success', '<strong>✨ Тамаша!</strong> Сіздің келуіңіз расталды. Күтеміз!');
-        
-        sendRSVP('Келемін');
-    });
-    
-    btnDecline.addEventListener('click', function() {
-        btnAccept.disabled = true;
-        btnDecline.disabled = true;
-        
-        showModal('declined', '<strong>💔 Өкінішті.</strong>');
-        
-        sendRSVP('Келмеймін');
-    });
-    
-    function sendRSVP(response) {
-        const guestName = document.getElementById('guestName').textContent;
-        
-        const formData = new FormData();
-        formData.append('entry.1898004027', guestName);
-        formData.append('entry.1495192587', response);
-        
-        fetch('https://docs.google.com/forms/d/e/1FAIpQLScJBTWD6b3RwOgBwIIPppRBb0A7z-TuSV2WsEOGu18cNx1Ynw/formResponse', {
-            method: 'POST',
-            body: formData,
-            mode: 'no-cors'
-        }).then(() => {
-            console.log('RSVP отправлен успешно');
-        }).catch(err => {
-            console.error('Ошибка отправки RSVP:', err);
-        });
-    }
-});
-</script>
 
 </body>
 </html>
