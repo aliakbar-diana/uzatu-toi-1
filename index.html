@@ -41,7 +41,7 @@
     width: 100vw;
     height: 100vh;
 
-    background-image: url('1.jpg');
+    background-image: url('3.png');
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -235,6 +235,7 @@
             margin-top: 0.5rem;
             padding: 0.6rem 1.4rem;
             border-radius: 50px;
+            background: linear-gradient(135deg, #ad986e, #c9b388);
             color: #fff;
             text-decoration: none;
             font-size: 0.8rem;
@@ -289,7 +290,7 @@
                 0 2px 4px rgba(139,111,71,0.3);
         }
 
-        .btn-accept:hover {
+        .btn-accept:hover:not(:disabled) {
             transform: translateY(-2px);
             box-shadow: 
                 0 6px 16px rgba(173,152,110,0.5),
@@ -303,10 +304,22 @@
             text-shadow: none;
         }
 
-        .btn-decline:hover {
+        .btn-decline:hover:not(:disabled) {
             background: rgba(255,255,255,0.9);
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(139,111,71,0.2);
+        }
+
+        .rsvp-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        #rsvp-message {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #8b6f47;
+            font-weight: 500;
         }
 
         /* Mobile tweaks */
@@ -333,12 +346,12 @@
             <div class="guest-card mb-3">
                 <div class="guest-label">Шақырылады</div>
                 <div class="guest-name" id="guestName">
-                    Еркин<br>Галя<br>Ерсин<br>Айнур<br>Айгерим
+                    Ерк<br>Галя<br>Ерсин<br>Айнур<br>Айгерим
                 </div>
             </div>
 
-            <div class="greeting">Құрметті қонақтар!</div>
-            <div class="message mb-3">
+            <div class="greeting" style="color: white !important">Құрметті қонақтар!</div>
+            <div class="message mb-3" style="color: white !important;">
                 Сіздерді аяулы қызымыз Диананың ұзату тойына
                 арналған салтанатты ақ дастарханымыздың
                 қадірлі қонағы болуға шақырамыз!
@@ -353,14 +366,14 @@
             </div>
 
             <div class="detail-card">
-                <div class="card-header">Мекен-жайы</div>
+                <div class="card-header">Мекенжайы</div>
                 <div class="detail-value address">
                     Петропавл қ. | Конституция Казахстана, 41<br>
                     "Garden Hall"
                 </div>
             </div>
 
-            <a href="https://go.2gis.com/rc55o" target="_blank" class="gis-button">
+            <a href="https://go.2gis.com/11K3s" target="_blank" class="gis-button">
                 Картада ашу (2ГИС)
             </a>
 
@@ -373,17 +386,79 @@
                 <div class="mb-2">Тойға келесізбе?</div>
                 <div class="row g-2">
                     <div class="col-6">
-                        <button class="rsvp-btn btn-accept">Келемін</button>
+                        <button class="rsvp-btn btn-accept" onclick="submitRSVP('Иә, келемін')">Келемін</button>
                     </div>
                     <div class="col-6">
-                        <button class="rsvp-btn btn-decline">Келмеймін</button>
+                        <button class="rsvp-btn btn-decline" onclick="submitRSVP('Келе алмаймын')">Келмеймін</button>
                     </div>
                 </div>
+                <div id="rsvp-message"></div>
             </div>
 
         </div>
     </div>
 </div>
+
+<script>
+function submitRSVP(response) {
+    // Получаем имя гостя из элемента
+    const guestNameElement = document.getElementById('guestName');
+    const guestName = guestNameElement.innerText.trim().replace(/\n/g, ' ');
+    
+    // Base URL Google Form
+    const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLScJBTWD6b3RwOgBwIIPppRBb0A7z-TuSV2WsEOGu18cNx1Ynw/formResponse';
+    
+    // Параметры формы
+    const params = new URLSearchParams({
+        'entry.1898004027': guestName,  // Имя гостя
+        'entry.1495192587': response     // Ответ (Иә, келемін или Келе алмаймын)
+    });
+    
+    // Создаем скрытый iframe для отправки формы
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.name = 'hidden_iframe';
+    document.body.appendChild(iframe);
+    
+    // Создаем форму
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = formUrl;
+    form.target = 'hidden_iframe';
+    
+    // Добавляем поля
+    params.forEach((value, key) => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = value;
+        form.appendChild(input);
+    });
+    
+    document.body.appendChild(form);
+    form.submit();
+    
+    // Показываем сообщение пользователю
+    const messageDiv = document.getElementById('rsvp-message');
+    if (response === 'Иә, келемін') {
+        messageDiv.innerHTML = '✓ Рақмет! Сіздің жауабыңыз қабылданды.<br>Сізді көруге асығамыз!';
+        messageDiv.style.color = '#8b6f47';
+    } else {
+        messageDiv.innerHTML = '✓ Рақмет! Сіздің жауабыңыз қабылданды.';
+        messageDiv.style.color = '#8b6f47';
+    }
+    
+    // Отключаем кнопки после отправки
+    document.querySelectorAll('.rsvp-btn').forEach(btn => {
+        btn.disabled = true;
+    });
+    
+    // Удаляем форму через секунду
+    setTimeout(() => {
+        document.body.removeChild(form);
+    }, 1000);
+}
+</script>
 
 </body>
 </html>
