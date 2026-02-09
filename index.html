@@ -51,7 +51,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.15);
+            background: rgba(0, 0, 0, 0.05);
             z-index: -1;
         }
         
@@ -99,16 +99,24 @@
         }
         
         /* Guest Name Card */
-        .guest-card {
-            background: linear-gradient(135deg, rgba(173, 152, 110, 0.25), rgba(193, 172, 130, 0.15));
-            border: 2px solid rgba(173, 152, 110, 0.4);
-            border-radius: 20px;
-            padding: 0.8rem 1.5rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            animation: fadeInScale 0.8s ease 0.4s backwards;
-            display: inline-block;
-        }
-        
+.guest-card {
+    background: linear-gradient(
+        135deg,
+        rgba(173, 152, 110, 0.18),
+        rgba(193, 172, 130, 0.08)
+    );
+    border: 1.5px solid rgba(173, 152, 110, 0.28);
+    border-radius: 20px;
+    padding: 0.8rem 1.5rem;
+
+    /* тень легче, чтобы не затемняла */
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.10);
+
+    animation: fadeInScale 0.8s ease 0.4s backwards;
+    display: inline-block;
+}
+
+
         @keyframes fadeInScale {
             from {
                 opacity: 0;
