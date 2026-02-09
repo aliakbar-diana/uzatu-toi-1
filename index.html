@@ -2,7 +2,7 @@
 <html lang="kk">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Персональное приглашение | Диана қыз ұзату</title>
     
     <style>
@@ -16,7 +16,7 @@
             box-sizing: border-box;
         }
         
-        html, body {
+        html {
             height: 100%;
             overflow: hidden;
         }
@@ -24,21 +24,26 @@
         body {
             position: relative;
             max-width: 640px;
-            height: 100vh;
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
             margin: 0 auto;
             color: #fff;
             font-family: MonumentaPro, Arial, sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
         
         body:before {
             content: "";
-            position: absolute;
+            position: fixed;
             top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 640px;
+            height: 100%;
             background: url('1.jpg') no-repeat center center;
             background-size: cover;
             z-index: -2;
@@ -46,11 +51,13 @@
         
         body:after {
             content: "";
-            position: absolute;
+            position: fixed;
             top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 640px;
+            height: 100%;
             background: rgba(0, 0, 0, 0.35);
             z-index: -1;
         }
@@ -60,12 +67,13 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            padding: 20px 25px;
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            padding: 30px 25px;
             text-align: center;
             opacity: 0;
             animation: fadeIn 1.2s ease forwards;
-            gap: 18px;
+            gap: clamp(12px, 3vh, 18px);
         }
         
         @keyframes fadeIn {
@@ -86,19 +94,19 @@
         
         .bride-name {
             font-family: Shelley, Arial, sans-serif;
-            font-size: 68px;
+            font-size: clamp(48px, 12vw, 68px);
             color: #fff;
             line-height: 1;
-            margin-bottom: 6px;
+            margin-bottom: clamp(4px, 1vh, 6px);
             text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
             font-weight: 500;
         }
         
         .event-type {
             font-family: MonumentaPro, Arial, sans-serif;
-            font-size: 18px;
+            font-size: clamp(14px, 4vw, 18px);
             color: #fff;
-            letter-spacing: 4px;
+            letter-spacing: clamp(2px, 1vw, 4px);
             text-transform: uppercase;
             text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
         }
@@ -110,8 +118,10 @@
             backdrop-filter: blur(15px);
             border: 2px solid rgba(173, 152, 110, 0.4);
             border-radius: 25px;
-            padding: 15px 30px;
+            padding: clamp(12px, 3vh, 15px) clamp(20px, 5vw, 30px);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            max-width: 95%;
+            width: 100%;
         }
         
         @keyframes fadeInScale {
@@ -123,25 +133,28 @@
         
         .guest-name-label {
             font-family: MonumentaPro, Arial, sans-serif;
-            font-size: 10px;
+            font-size: clamp(9px, 2.5vw, 10px);
             color: rgba(255, 255, 255, 0.85);
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 6px;
+            margin-bottom: clamp(4px, 1vh, 6px);
         }
         
         .guest-name {
             font-family: Shelley, Arial, sans-serif;
-            font-size: 38px;
+            font-size: clamp(26px, 7vw, 38px);
             color: #fff;
             text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
-            line-height: 1.2;
+            line-height: 1.3;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
         
         /* ===== INVITATION TEXT ===== */
         .invitation-text {
-            max-width: 480px;
+            max-width: min(480px, 90%);
             animation: fadeInUp 0.8s ease 0.6s backwards;
+            padding: 0 10px;
         }
         
         @keyframes fadeInUp {
@@ -153,15 +166,15 @@
         
         .guest-greeting {
             font-family: MonumentaPro, Arial, sans-serif;
-            font-size: 14px;
+            font-size: clamp(12px, 3.5vw, 14px);
             color: #fff;
-            margin-bottom: 12px;
+            margin-bottom: clamp(8px, 2vh, 12px);
             text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
         }
         
         .invitation-message {
             font-family: MonumentaPro, Arial, sans-serif;
-            font-size: 13px;
+            font-size: clamp(11px, 3vw, 13px);
             color: #fff;
             line-height: 1.6;
             text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
@@ -171,9 +184,9 @@
         .event-details {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: clamp(10px, 2.5vh, 15px);
             width: 100%;
-            max-width: 420px;
+            max-width: min(420px, 90%);
             animation: scaleIn 0.8s ease 0.8s backwards;
         }
         
@@ -189,7 +202,7 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 20px;
-            padding: 20px 18px;
+            padding: clamp(14px, 3vh, 20px) clamp(12px, 3vw, 18px);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
         
@@ -198,16 +211,18 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 30px;
+            gap: clamp(20px, 5vw, 30px);
+            flex-wrap: wrap;
         }
         
         .datetime-section {
             text-align: center;
+            flex-shrink: 0;
         }
         
         .datetime-divider {
             width: 2px;
-            height: 60px;
+            height: clamp(50px, 10vh, 60px);
             background: linear-gradient(to bottom, 
                 rgba(255, 255, 255, 0.1) 0%, 
                 rgba(255, 255, 255, 0.4) 50%, 
@@ -216,16 +231,16 @@
         
         .detail-label {
             font-family: MonumentaPro, Arial, sans-serif;
-            font-size: 12px;
+            font-size: clamp(10px, 2.8vw, 12px);
             color: rgba(255, 255, 255, 0.85);
             text-transform: lowercase;
-            margin-bottom: 10px;
+            margin-bottom: clamp(6px, 1.5vh, 10px);
             letter-spacing: 1px;
         }
         
         .detail-value {
             font-family: Shelley, Arial, sans-serif;
-            font-size: 40px;
+            font-size: clamp(32px, 8vw, 40px);
             color: #fff;
             line-height: 1.1;
             text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
@@ -233,13 +248,13 @@
         
         .detail-value.time {
             font-family: MonumentaPro, Arial, sans-serif;
-            font-size: 32px;
+            font-size: clamp(26px, 6.5vw, 32px);
             font-weight: 300;
         }
         
         .detail-value.address {
             font-family: MonumentaPro, Arial, sans-serif;
-            font-size: 13px;
+            font-size: clamp(11px, 3vw, 13px);
             line-height: 1.6;
             font-weight: 400;
         }
@@ -251,15 +266,15 @@
         
         .hosts-label {
             font-family: MonumentaPro, Arial, sans-serif;
-            font-size: 12px;
+            font-size: clamp(11px, 3vw, 12px);
             color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 8px;
+            margin-bottom: clamp(6px, 1.5vh, 8px);
             text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
         }
         
         .hosts-names {
             font-family: Shelley, Arial, sans-serif;
-            font-size: 32px;
+            font-size: clamp(26px, 7vw, 32px);
             color: #fff;
             text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
         }
@@ -271,23 +286,23 @@
             justify-content: center;
             gap: 8px;
             font-family: MonumentaPro, Arial, sans-serif;
-            font-size: 12px;
-            padding: 12px 20px;
-            margin-top: 10px;
-            background: linear-gradient(135deg, rgba(0, 150, 136, 0.9) 0%, rgba(0, 121, 107, 0.9) 100%);
+            font-size: clamp(11px, 3vw, 12px);
+            padding: clamp(10px, 2.5vh, 12px) clamp(16px, 4vw, 20px);
+            margin-top: clamp(6px, 1.5vh, 10px);
+            background: linear-gradient(135deg, #ad986e 0%, #c9b388 100%);
             color: #fff;
             border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 50px;
             text-decoration: none;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 150, 136, 0.3);
+            box-shadow: 0 4px 15px rgba(173, 152, 110, 0.3);
             backdrop-filter: blur(10px);
         }
         
         .gis-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 150, 136, 0.5);
-            background: linear-gradient(135deg, rgba(0, 150, 136, 1) 0%, rgba(0, 121, 107, 1) 100%);
+            box-shadow: 0 6px 20px rgba(173, 152, 110, 0.5);
+            background: linear-gradient(135deg, #c9b388 0%, #ad986e 100%);
         }
         
         .gis-button:active {
@@ -296,18 +311,20 @@
         
         .gis-button svg {
             flex-shrink: 0;
+            width: clamp(14px, 4vw, 18px);
+            height: clamp(14px, 4vw, 18px);
         }
         
         /* ===== RSVP BUTTONS ===== */
         .rsvp-section {
             width: 100%;
-            max-width: 420px;
+            max-width: min(420px, 90%);
             animation: fadeInUp 0.8s ease 1.2s backwards;
         }
         
         .rsvp-buttons {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 12px;
             margin-bottom: 12px;
         }
@@ -315,8 +332,8 @@
         .rsvp-btn {
             position: relative;
             font-family: MonumentaPro, Arial, sans-serif;
-            font-size: 13px;
-            padding: 14px 22px;
+            font-size: clamp(12px, 3.2vw, 13px);
+            padding: clamp(12px, 2.5vh, 14px) clamp(18px, 4vw, 22px);
             border: none;
             border-radius: 50px;
             cursor: pointer;
@@ -325,6 +342,8 @@
             text-shadow: none;
             overflow: hidden;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            line-height: 1.3;
         }
         
         .rsvp-btn::before {
@@ -413,9 +432,9 @@
         .modal-content {
             background: linear-gradient(135deg, rgba(173, 152, 110, 0.95) 0%, rgba(193, 172, 130, 0.95) 100%);
             border-radius: 25px;
-            padding: 40px 30px;
+            padding: clamp(30px, 6vh, 40px) clamp(20px, 5vw, 30px);
             text-align: center;
-            max-width: 320px;
+            max-width: min(320px, 85%);
             width: 90%;
             transform: scale(0.9);
             opacity: 0;
@@ -436,24 +455,24 @@
         }
         
         .modal-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
+            font-size: clamp(40px, 10vw, 48px);
+            margin-bottom: clamp(15px, 3vh, 20px);
             display: block;
         }
         
         .modal-message {
             font-family: MonumentaPro, Arial, sans-serif;
-            font-size: 16px;
+            font-size: clamp(14px, 3.5vw, 16px);
             color: #fff;
             line-height: 1.5;
-            margin-bottom: 25px;
+            margin-bottom: clamp(20px, 4vh, 25px);
             text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
         }
         
         .modal-close {
             font-family: MonumentaPro, Arial, sans-serif;
-            font-size: 14px;
-            padding: 12px 30px;
+            font-size: clamp(12px, 3.2vw, 14px);
+            padding: clamp(10px, 2vh, 12px) clamp(25px, 6vw, 30px);
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%);
             color: #fff;
             border: 2px solid rgba(255, 255, 255, 0.5);
@@ -469,53 +488,82 @@
             transform: translateY(-2px);
         }
         
-        /* ===== MOBILE RESPONSIVE ===== */
-        @media (max-width: 480px) {
+        /* ===== LANDSCAPE MODE ===== */
+        @media (orientation: landscape) and (max-height: 500px) {
             .invitation-wrapper {
-                padding: 15px;
-                gap: 12px;
+                padding: 20px 15px;
+                gap: 8px;
+                min-height: auto;
             }
             
             .bride-name {
-                font-size: 52px;
-                margin-bottom: 4px;
+                font-size: clamp(36px, 8vh, 48px);
+                margin-bottom: 3px;
             }
             
             .event-type {
-                font-size: 15px;
-                letter-spacing: 2px;
+                font-size: clamp(12px, 3vh, 14px);
             }
             
             .guest-name-section {
-                padding: 12px 22px;
-            }
-            
-            .guest-name-label {
-                font-size: 9px;
-                margin-bottom: 5px;
+                padding: 8px 20px;
             }
             
             .guest-name {
-                font-size: 28px;
+                font-size: clamp(22px, 5vh, 28px);
+            }
+            
+            .invitation-text {
+                margin: 5px 0;
             }
             
             .guest-greeting {
-                font-size: 12px;
-                margin-bottom: 8px;
+                font-size: clamp(10px, 2.5vh, 12px);
+                margin-bottom: 5px;
             }
             
             .invitation-message {
-                font-size: 11px;
-                line-height: 1.5;
+                font-size: clamp(10px, 2.5vh, 11px);
+                line-height: 1.4;
             }
             
             .event-details {
-                gap: 10px;
-                max-width: 100%;
+                gap: 8px;
             }
             
             .detail-card {
-                padding: 14px 12px;
+                padding: 10px 12px;
+            }
+            
+            .datetime-card {
+                gap: 15px;
+            }
+            
+            .datetime-divider {
+                height: 40px;
+            }
+            
+            .detail-value {
+                font-size: clamp(24px, 6vh, 32px);
+            }
+            
+            .detail-value.time {
+                font-size: clamp(20px, 5vh, 26px);
+            }
+            
+            .hosts-names {
+                font-size: clamp(20px, 5vh, 26px);
+            }
+            
+            .rsvp-buttons {
+                gap: 8px;
+            }
+        }
+        
+        /* ===== EXTRA SMALL SCREENS ===== */
+        @media (max-width: 360px) {
+            .invitation-wrapper {
+                padding: 20px 15px;
             }
             
             .datetime-card {
@@ -524,7 +572,7 @@
             }
             
             .datetime-divider {
-                width: 70px;
+                width: 60px;
                 height: 2px;
                 background: linear-gradient(to right, 
                     rgba(255, 255, 255, 0.1) 0%, 
@@ -532,238 +580,38 @@
                     rgba(255, 255, 255, 0.1) 100%);
             }
             
-            .detail-label {
-                font-size: 10px;
-                margin-bottom: 6px;
-            }
-            
-            .detail-value {
-                font-size: 32px;
-            }
-            
-            .detail-value.time {
-                font-size: 26px;
-            }
-            
-            .detail-value.address {
-                font-size: 11px;
-                line-height: 1.4;
-            }
-            
-            .hosts-label {
-                font-size: 11px;
-                margin-bottom: 6px;
-            }
-            
-            .hosts-names {
-                font-size: 26px;
-            }
-            
-            .gis-button {
-                background: linear-gradient(135deg, #ad986e 0%, #c9b388 100%);
-                font-size: 11px;
-                padding: 10px 16px;
-                margin-top: 8px;
-            }
-            
-            .gis-button svg {
-                width: 16px;
-                height: 16px;
-            }
-            
             .rsvp-buttons {
                 grid-template-columns: 1fr;
-                gap: 8px;
+                gap: 10px;
             }
             
-            .rsvp-btn {
-                font-size: 12px;
-                padding: 12px 18px;
-            }
-            
-            .modal-content {
-                padding: 30px 20px;
-                max-width: 280px;
-            }
-            
-            .modal-icon {
-                font-size: 40px;
-                margin-bottom: 15px;
-            }
-            
-            .modal-message {
-                font-size: 14px;
-                margin-bottom: 20px;
-            }
-            
-            .modal-close {
-                font-size: 12px;
-                padding: 10px 25px;
+            .invitation-message br {
+                display: none;
             }
         }
         
-        @media (max-height: 700px) {
+        /* ===== VERY SHORT SCREENS ===== */
+        @media (max-height: 600px) {
             .invitation-wrapper {
-                gap: 10px;
-                padding: 15px;
-            }
-            
-            .bride-name {
-                font-size: 48px;
-                margin-bottom: 3px;
-            }
-            
-            .event-type {
-                font-size: 14px;
-            }
-            
-            .guest-name-section {
-                padding: 10px 20px;
-            }
-            
-            .guest-name-label {
-                font-size: 8px;
-                margin-bottom: 4px;
-            }
-            
-            .guest-name {
-                font-size: 26px;
-            }
-            
-            .guest-greeting {
-                font-size: 11px;
-                margin-bottom: 6px;
-            }
-            
-            .invitation-message {
-                font-size: 10px;
-                line-height: 1.4;
-            }
-            
-            .event-details {
+                padding: 15px 20px;
                 gap: 8px;
             }
             
-            .detail-card {
-                padding: 12px 10px;
+            .bride-name {
+                font-size: clamp(40px, 10vw, 52px);
             }
             
-            .datetime-card {
-                gap: 10px;
-            }
-            
-            .detail-label {
-                font-size: 9px;
-                margin-bottom: 5px;
-            }
-            
-            .detail-value {
-                font-size: 28px;
-            }
-            
-            .detail-value.time {
-                font-size: 24px;
-            }
-            
-            .detail-value.address {
-                font-size: 10px;
-            }
-            
-            .hosts-label {
-                font-size: 10px;
-                margin-bottom: 5px;
-            }
-            
-            .hosts-names {
-                font-size: 24px;
-            }
-            
-            .gis-button {
-                font-size: 10px;
-                padding: 9px 14px;
-                margin-top: 6px;
-            }
-            
-            .gis-button svg {
-                width: 14px;
-                height: 14px;
-            }
-            
-            .rsvp-btn {
-                padding: 10px 16px;
-                font-size: 11px;
-            }
-            
-            .modal-content {
-                padding: 25px 18px;
-            }
-            
-            .modal-icon {
-                font-size: 36px;
-                margin-bottom: 12px;
-            }
-            
-            .modal-message {
-                font-size: 13px;
-                margin-bottom: 18px;
-            }
-            
-            .modal-close {
-                font-size: 11px;
-                padding: 9px 22px;
+            .guest-name {
+                font-size: clamp(24px, 6vw, 30px);
             }
         }
         
-        /* Комбинированный медиа-запрос для малых мобильных экранов */
-        @media (max-width: 480px) and (max-height: 700px) {
-            .invitation-wrapper {
-                gap: 8px;
-                padding: 12px;
-            }
-            
-            .bride-name {
-                font-size: 44px;
-            }
-            
-            .guest-name {
-                font-size: 24px;
-            }
-            
-            .datetime-card {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .datetime-divider {
-                width: 60px;
-                height: 2px;
-            }
-            
-            .detail-card {
-                padding: 10px 8px;
-            }
-            
-            .detail-value {
-                font-size: 26px;
-            }
-            
-            .detail-value.time {
-                font-size: 22px;
-            }
-            
-            .hosts-names {
-                font-size: 22px;
-            }
-            
-            .gis-button {
-                font-size: 10px;
-                padding: 8px 12px;
-                margin-top: 5px;
-            }
-            
-            .gis-button svg {
-                width: 14px;
-                height: 14px;
+        /* ===== ACCESSIBILITY ===== */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
             }
         }
     </style>
@@ -781,7 +629,7 @@
     <!-- Секция с именем гостя -->
     <div class="guest-name-section">
         <div class="guest-name-label">Шақырылады</div>
-        <div class="guest-name" id="guestName">Рашид - Ботагоз </div>
+        <div class="guest-name" id="guestName">Рашид - Ботагоз</div>
     </div>
     
     <!-- Текст приглашения -->
@@ -855,6 +703,16 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Фикс для iOS viewport height
+    const setVH = () => {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    };
+    
+    setVH();
+    window.addEventListener('resize', setVH);
+    window.addEventListener('orientationchange', setVH);
+    
     // Получаем имя гостя из URL параметра
     const urlParams = new URLSearchParams(window.location.search);
     const guestParam = urlParams.get('guest');
@@ -883,16 +741,27 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         modalOverlay.classList.add('active');
+        
+        // Блокируем скролл body при открытом модальном окне
+        document.body.style.overflow = 'hidden';
     }
     
     // Закрытие модального окна
     function closeModal() {
         modalOverlay.classList.remove('active');
+        document.body.style.overflow = '';
     }
     
     modalClose.addEventListener('click', closeModal);
     modalOverlay.addEventListener('click', function(e) {
         if (e.target === modalOverlay) {
+            closeModal();
+        }
+    });
+    
+    // Закрытие модального окна по ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
             closeModal();
         }
     });
